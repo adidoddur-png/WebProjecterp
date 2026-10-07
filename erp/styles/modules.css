@@ -1,0 +1,325 @@
+/* AURA ERP - Module Specific Layouts & Special Cards */
+
+/* Dashboard Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+/* AI Copilot & Risk Matrix */
+.copilot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.risk-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.risk-card.high-risk {
+  border-left: 4px solid var(--danger);
+}
+
+.risk-card.med-risk {
+  border-left: 4px solid var(--warning);
+}
+
+.risk-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.student-mini-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.student-mini-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.student-mini-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.student-mini-meta {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+}
+
+.risk-score-badge {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+.risk-score-badge.danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+.risk-score-badge.warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+
+.ai-recommendation-box {
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px dashed var(--ai-cyan);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.ai-recommendation-box strong {
+  color: var(--ai-cyan);
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* AI Chatbot Module */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 160px);
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-bot-info {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.bot-avatar-glow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ai-cyan), var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  box-shadow: 0 0 15px var(--ai-cyan-glow);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.msg-bubble {
+  max-width: 75%;
+  padding: 0.9rem 1.2rem;
+  border-radius: 18px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  position: relative;
+  animation: fadeIn 0.2s ease;
+}
+
+.msg-bubble.bot {
+  align-self: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top-left-radius: 4px;
+  color: var(--text-main);
+}
+
+.msg-bubble.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-top-right-radius: 4px;
+  color: #fff;
+}
+
+.msg-author {
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-input-area {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.chat-input-field {
+  flex: 1;
+  padding: 0.75rem 1.2rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.chat-input-field:focus {
+  border-color: var(--ai-cyan);
+}
+
+.quick-prompts {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 1.5rem 0.75rem 1.5rem;
+  overflow-x: auto;
+}
+
+.prompt-chip {
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.prompt-chip:hover {
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--ai-cyan);
+  border-color: var(--ai-cyan);
+}
+
+/* Hostel Grid Allocator */
+.hostel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.room-cell {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.room-cell:hover {
+  border-color: var(--primary);
+  transform: scale(1.03);
+}
+
+.room-cell.occupied {
+  border-color: var(--warning);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.room-cell.full {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.room-cell.vacant {
+  border-color: var(--success);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.room-number {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.room-beds {
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+}
+
+/* Timeline & Activity Feed */
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.activity-item {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  position: relative;
+}
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--primary);
+}
+
+.activity-details h5 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.activity-details p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.activity-time {
+  font-size: 0.68rem;
+  color: var(--text-subtle);
+}

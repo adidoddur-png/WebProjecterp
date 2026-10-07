@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GMIT ERP - GM Institute of Technology, Davangere</title>
+  
+  <!-- SEO & Meta -->
+  <meta name="description" content="GMIT ERP - GM Institute of Technology, Davangere (Srishyla Educational Trust). Comprehensive AI-Powered Campus ERP System.">
+  <meta name="theme-color" content="#0f172a">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- html2pdf for PDF Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Application Styles -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/modules.css">
+</head>
+<body class="theme-dark">
+  
+  <div id="app-root" class="erp-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="erp-sidebar" id="main-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo" style="cursor: pointer;" onclick="window.location.hash='#dashboard'">
+          <img src="assets/gmit-logo.svg" alt="GMIT Logo" style="width: 44px; height: 44px; filter: drop-shadow(0 0 10px rgba(217, 119, 6, 0.45)); object-fit: contain; flex-shrink: 0;">
+          <div class="brand-text">
+            <h2>GMIT <span class="badge-ai" style="background: linear-gradient(90deg, #d97706, #ea580c); color: #fff;">ERP</span></h2>
+            <span class="brand-sub">GM Inst. of Tech, Davangere</span>
+          </div>
+        </div>
+        <button id="sidebar-toggle-btn" class="icon-btn sidebar-toggle" title="Collapse Sidebar">
+          <i class="fa-solid fa-angle-left"></i>
+        </button>
+      </div>
+
+      <!-- Active Role Badge -->
+      <div class="role-selector-card">
+        <div class="role-label"><i class="fa-solid fa-user-shield"></i> Active Role</div>
+        <div id="role-desc" style="font-size: 0.82rem; font-weight: 600; color: var(--text-main); margin-top: 0.25rem;">Full system access & AI control center</div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">CORE PLATFORM</div>
+        <a href="#dashboard" class="nav-link active" data-module="dashboard">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>Executive Dashboard</span>
+          <span class="nav-badge pulse">Live</span>
+        </a>
+        <a href="#aiCopilot" class="nav-link" data-module="aiCopilot">
+          <i class="fa-solid fa-brain"></i>
+          <span>AI Neural Co-Pilot</span>
+          <span class="nav-badge ai-highlight">Predictor</span>
+        </a>
+
+        <div class="nav-section-title">ACADEMIC & STUDENTS</div>
+        <a href="#attendance" class="nav-link" data-module="attendance">
+          <i class="fa-solid fa-qrcode"></i>
+          <span>Classroom Attendance</span>
+          <span class="nav-badge glow" style="background: linear-gradient(90deg, #10b981, #059669); color: #fff;">QR Live</span>
+        </a>
+        <a href="#sis" class="nav-link" data-module="sis">
+          <i class="fa-solid fa-user-graduate"></i>
+          <span>Student Info System (SIS)</span>
+        </a>
+        <a href="#faculty" class="nav-link" data-module="faculty">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Faculty & Staff HR</span>
+        </a>
+        <a href="#academics" class="nav-link" data-module="academics">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Academics & Exam LMS</span>
+        </a>
+
+        <div class="nav-section-title">ADMINISTRATION</div>
+        <a href="#finance" class="nav-link" data-module="finance">
+          <i class="fa-solid fa-wallet"></i>
+          <span>Finance & Fee Ledger</span>
+        </a>
+        <a href="#hostel" class="nav-link" data-module="hostel">
+          <i class="fa-solid fa-building-user"></i>
+          <span>Hostel & Facilities</span>
+        </a>
+        <a href="#library" class="nav-link" data-module="library">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span>Smart Library</span>
+        </a>
+        <a href="#placements" class="nav-link" data-module="placements">
+          <i class="fa-solid fa-briefcase"></i>
+          <span>Placements & Career</span>
+        </a>
+
+        <div class="nav-section-title">AI INTELLIGENCE</div>
+        <a href="#aiChatbot" class="nav-link" data-module="aiChatbot">
+          <i class="fa-solid fa-robot"></i>
+          <span>GMIT AI</span>
+          <span class="nav-badge glow">Gemini 3</span>
+        </a>
+      </nav>
+
+      <!-- System Status Footer -->
+      <div class="sidebar-footer">
+        <div class="ai-status-indicator" style="margin-bottom: 0.75rem;">
+          <span class="status-dot online"></span>
+          <div class="status-info">
+            <span class="status-title">Neural Engine Active</span>
+            <span class="status-sub">Lat: 18ms • Accuracy 98.4%</span>
+          </div>
+        </div>
+        <button onclick="sessionStorage.removeItem('aura_session'); window.location.href='login.html'" style="width:100%; display:flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.55rem; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:8px; color:#fca5a5; font-size:0.8rem; font-weight:700; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.25)'" onmouseout="this.style.background='rgba(239,68,68,0.12)'">
+          <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Body -->
+    <main class="erp-main">
+      
+      <!-- Top Navbar -->
+      <header class="erp-header">
+        <div class="header-left">
+          <button id="mobile-menu-btn" class="icon-btn mobile-only">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="global-search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="global-search-input" placeholder="Search students, faculty, courses, AI tools, fees... (Ctrl + K)" autocomplete="off">
+            <kbd class="search-kbd">Ctrl K</kbd>
+            <div id="search-results-dropdown" class="search-results-dropdown hidden"></div>
+          </div>
+          <div class="college-header-tag hide-mobile" style="display: flex; align-items: center; gap: 0.65rem; background: rgba(217,119,6,0.08); border: 1px solid rgba(217,119,6,0.25); padding: 0.35rem 0.85rem; border-radius: 10px; margin-left: 0.5rem;">
+            <img src="assets/gmit-logo.svg" alt="GMIT" style="width: 22px; height: 22px; object-fit: contain;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: #f59e0b; letter-spacing: 0.3px;">GM INSTITUTE OF TECHNOLOGY</span>
+            <span style="font-size: 0.65rem; background: rgba(6,182,212,0.15); color: #06b6d4; padding: 2px 6px; border-radius: 4px; font-weight: 700;">VTU • NBA • NAAC</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Quick Action AI trigger -->
+          <button id="quick-ai-btn" class="btn btn-ai-sparkle">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>AI Quick Action</span>
+          </button>
+
+          <!-- Notification Bell -->
+          <div class="notification-wrap">
+            <button id="notif-bell-btn" class="icon-btn nav-icon-btn" title="AI Alerts & Notifications">
+              <i class="fa-regular fa-bell"></i>
+              <span class="notif-badge" id="notif-count">3</span>
+            </button>
+            <div id="notif-dropdown" class="notif-dropdown hidden">
+              <div class="notif-header">
+                <h3><i class="fa-solid fa-bolt text-amber"></i> AI Insights & Alerts</h3>
+                <button id="mark-read-btn" class="text-btn">Mark all read</button>
+              </div>
+              <div class="notif-list" id="notif-list">
+                <!-- Notifications dynamically loaded -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Switcher -->
+          <button id="theme-toggle-btn" class="icon-btn nav-icon-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
+          <!-- Current User Profile Pill -->
+          <div class="user-profile-pill" id="user-profile-pill">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="user-avatar" id="current-user-avatar">
+            <div class="user-info">
+              <span class="user-name" id="current-user-name">Dr. Eleanor Vance</span>
+              <span class="user-role-title" id="current-user-role">Dean of Academic Affairs</span>
+            </div>
+            <i class="fa-solid fa-chevron-down pill-arrow"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- View Container (Modules render here dynamically) -->
+      <div id="module-container" class="module-view-container">
+        <!-- Rendered module view -->
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Global Modal Container -->
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div id="modal-content" class="modal-box">
+      <!-- Modal Header, Body, Footer dynamically injected -->
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Logic Scripts -->
+  <script type="module" src="scripts/app.js"></script>
+</body>
+</html>

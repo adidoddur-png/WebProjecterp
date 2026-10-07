@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GMIT ERP Student Portal | GM Institute of Technology, Davangere</title>
+  <meta name="description" content="GMIT ERP Student Portal">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f3ede8; --bg-card: #ffffff; --primary: #7c1d1d;
+      --text: #1a1a1a; --text-muted: #666; --text-subtle: #999;
+      --border: rgba(0,0,0,0.07);
+      --blue: #2a5bd7; --blue-light: #e8eeff; --blue-mid: #4a7bf0;
+      --green: #15a85f; --green-light: #e4f7ef;
+      --purple: #6b3ebb; --purple-light: #f0eaff;
+      --red: #d63031; --red-light: #ffeaea;
+      --orange: #e17b2f; --orange-light: #fff3e8;
+      --teal: #0093a8; --teal-light: #e0f7fa;
+      --amber: #d4a800; --amber-light: #fffbe0;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.14);
+    }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; max-width:480px; margin:0 auto; }
+    .top-header { background:linear-gradient(135deg,#7c1d1d 0%,#a33030 60%,#8b2323 100%); padding:.85rem 1.1rem 1rem; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 3px 15px rgba(124,29,29,.4); }
+    .header-left { display:flex; align-items:center; gap:.7rem; }
+    .header-logo { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; overflow:hidden; border:2px solid rgba(255,255,255,.3); flex-shrink:0; }
+    .header-logo img { width:34px; height:34px; object-fit:contain; }
+    .header-title { color:#fff; font-family:'Outfit',sans-serif; font-size:1.08rem; font-weight:800; letter-spacing:.3px; }
+    .header-subtitle { color:rgba(255,255,255,.75); font-size:.68rem; font-weight:500; }
+    .header-avatar { width:38px; height:38px; border-radius:50%; border:2.5px solid rgba(255,255,255,.5); overflow:hidden; cursor:pointer; flex-shrink:0; }
+    .header-avatar-inner { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.88rem; color:#fff; }
+    .search-wrap { background:linear-gradient(135deg,#7c1d1d,#a33030); padding:0 1.1rem 1rem; }
+    .search-inner { display:flex; align-items:center; gap:.7rem; background:#fff; border-radius:10px; padding:.6rem 1rem; box-shadow:0 2px 10px rgba(0,0,0,.12); }
+    .search-inner i { color:#aaa; font-size:.9rem; }
+    .search-inner input { border:none; outline:none; background:transparent; font-size:.9rem; color:#555; width:100%; font-family:'Inter',sans-serif; }
+    .search-inner input::placeholder { color:#bbb; }
+    .main-content { padding:1rem 1rem 6rem; }
+    .student-strip { background:#fff; border-radius:12px; padding:.8rem 1rem; margin-bottom:1rem; display:flex; align-items:center; gap:.8rem; box-shadow:var(--shadow); }
+    .strip-info { flex:1; }
+    .strip-name { font-weight:700; font-size:.9rem; color:var(--text); }
+    .strip-usn { font-size:.72rem; color:var(--text-muted); margin-top:1px; }
+    .strip-badges { display:flex; gap:.4rem; margin-top:.3rem; flex-wrap:wrap; }
+    .strip-badge { font-size:.62rem; font-weight:700; padding:2px 7px; border-radius:20px; }
+    .strip-signout { background:none; border:1px solid #eee; border-radius:8px; padding:.35rem .65rem; font-size:.72rem; color:var(--red); cursor:pointer; font-weight:600; flex-shrink:0; display:flex; align-items:center; gap:.3rem; }
+    .section-label { display:flex; align-items:center; gap:.55rem; font-size:.72rem; font-weight:800; letter-spacing:.8px; text-transform:uppercase; color:var(--primary); margin:1.25rem 0 .65rem; padding-bottom:.4rem; border-bottom:2px solid rgba(124,29,29,.15); }
+    .quick-row { display:grid; grid-template-columns:repeat(4,1fr); gap:.6rem; }
+    .quick-tile { border-radius:14px; padding:.85rem .4rem; display:flex; flex-direction:column; align-items:center; gap:.4rem; cursor:pointer; transition:transform .18s,box-shadow .18s; }
+    .quick-tile:hover,.quick-tile:active { transform:translateY(-2px) scale(1.02); }
+    .quick-tile i { font-size:1.25rem; color:#fff; }
+    .quick-tile span { font-size:.68rem; font-weight:700; color:#fff; text-align:center; line-height:1.2; }
+    .qt-blue { background:var(--blue); box-shadow:0 4px 12px rgba(42,91,215,.35); }
+    .qt-bluemid { background:var(--blue-mid); box-shadow:0 4px 12px rgba(74,123,240,.35); }
+    .qt-bluedk { background:#1a4db3; box-shadow:0 4px 12px rgba(26,77,179,.35); }
+    .qt-green { background:var(--green); box-shadow:0 4px 12px rgba(21,168,95,.35); }
+    .icon-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.5rem; }
+    .icon-tile { background:#fff; border-radius:14px; padding:.9rem .4rem .7rem; display:flex; flex-direction:column; align-items:center; gap:.5rem; cursor:pointer; transition:transform .18s,box-shadow .18s; box-shadow:var(--shadow); border:1px solid var(--border); }
+    .icon-tile:hover,.icon-tile:active { transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+    .tile-icon { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0; }
+    .icon-tile span { font-size:.65rem; font-weight:600; color:var(--text); text-align:center; line-height:1.25; }
+    .ti-blue { background:var(--blue-light); color:var(--blue); }
+    .ti-green { background:var(--green-light); color:var(--green); }
+    .ti-purple { background:var(--purple-light); color:var(--purple); }
+    .ti-red { background:var(--red-light); color:var(--red); }
+    .ti-orange { background:var(--orange-light); color:var(--orange); }
+    .ti-teal { background:var(--teal-light); color:var(--teal); }
+    .ti-amber { background:var(--amber-light); color:var(--amber); }
+    .stats-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; margin-bottom:0; }
+    .stat-card { background:#fff; border-radius:12px; padding:.8rem .5rem; text-align:center; box-shadow:var(--shadow); border:1px solid var(--border); }
+    .stat-val { font-family:'Outfit',sans-serif; font-size:1.4rem; font-weight:800; }
+    .stat-lbl { font-size:.65rem; color:var(--text-muted); margin-top:2px; font-weight:500; }
+    .sv-blue { color:var(--blue); } .sv-green { color:var(--green); } .sv-orange { color:var(--orange); }
+    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.7); backdrop-filter:blur(6px); z-index:999; display:flex; align-items:center; justify-content:center; padding:1rem; }
+    .modal-box { background:#fff; border-radius:20px; max-width:400px; width:100%; max-height:92vh; overflow-y:auto; box-shadow:0 30px 80px rgba(0,0,0,.4); }
+    .modal-header { padding:1rem 1.25rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#fff; border-radius:20px 20px 0 0; }
+    .modal-title { font-weight:800; font-size:.95rem; color:var(--text); display:flex; align-items:center; gap:.5rem; }
+    .modal-close { background:none; border:none; font-size:1.35rem; color:#999; cursor:pointer; line-height:1; }
+    .modal-body { padding:1.25rem; }
+    .id-card { background:#fff; border:2px solid #d97706; border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.15); }
+    .id-card-top { background:linear-gradient(135deg,#1e293b,#0f172a); color:#fff; padding:.75rem 1rem; text-align:center; border-bottom:3px solid #d97706; }
+    .id-card-top .trust { font-size:.58rem; color:#cbd5e1; font-weight:700; }
+    .id-card-top .college-row { display:flex; align-items:center; justify-content:center; gap:.4rem; margin-top:2px; }
+    .id-card-top .college-row img { width:26px; height:26px; object-fit:contain; }
+    .id-card-top .college-name { font-family:'Outfit',sans-serif; font-size:.95rem; font-weight:900; color:#f59e0b; }
+    .id-card-top .college-sub { font-size:.58rem; color:#94a3b8; }
+    .id-card-body { padding:1rem; }
+    .id-card-grid { display:grid; grid-template-columns:1fr 1fr; gap:.3rem; background:#f8fafc; padding:.5rem .75rem; border-radius:6px; font-size:.68rem; border:1px solid #e2e8f0; margin-bottom:.75rem; }
+    .id-card-qr-row { display:flex; align-items:center; justify-content:space-between; border-top:1px dashed #cbd5e1; padding-top:.6rem; }
+    .id-card-footer { background:#d97706; color:#fff; padding:4px; text-align:center; font-size:.58rem; font-weight:800; letter-spacing:.5px; }
+    .fab { position:fixed; bottom:1.5rem; right:1.5rem; width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,#d97706,#ea580c); color:#fff; font-size:1.3rem; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(217,119,6,.45); cursor:pointer; border:none; transition:transform .2s,box-shadow .2s; z-index:90; }
+    .fab:hover { transform:scale(1.08); }
+    .bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid var(--border); display:grid; grid-template-columns:repeat(4,1fr); padding:.4rem 0 .5rem; box-shadow:0 -4px 20px rgba(0,0,0,.08); z-index:89; }
+    .bnav-item { display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer; padding:.25rem 0; transition:color .15s; }
+    .bnav-item i { font-size:1rem; }
+    .bnav-item span { font-size:.6rem; font-weight:600; }
+    .bnav-item.active { color:var(--primary); }
+    .bnav-item:not(.active) { color:#bbb; }
+    .toast { position:fixed; bottom:5.5rem; left:50%; transform:translateX(-50%); background:#1a1a1a; color:#fff; padding:.6rem 1.2rem; border-radius:24px; font-size:.82rem; font-weight:600; box-shadow:0 4px 18px rgba(0,0,0,.3); opacity:0; transition:opacity .3s; z-index:999; pointer-events:none; white-space:nowrap; }
+    .toast.show { opacity:1; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+    .fade-in { animation:fadeInUp .4s ease both; }
+    @media(max-width:360px){ .icon-grid{grid-template-columns:repeat(3,1fr)} .quick-row{grid-template-columns:repeat(2,1fr)} }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-left">
+      <div class="header-logo"><img src="assets/gmit-logo.svg" alt="GMIT"></div>
+      <div>
+        <div class="header-title">GM Institute of Technology</div>
+        <div class="header-subtitle" id="hdr-dept">Student Portal</div>
+      </div>
+    </div>
+    <div class="header-avatar" id="hdr-avatar-wrap">
+      <div class="header-avatar-inner" id="hdr-ini">?</div>
+    </div>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-inner">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="search-input" placeholder="Search features..." oninput="filterTiles(this.value)">
+    </div>
+  </div>
+
+  <div class="main-content fade-in">
+    <div class="student-strip">
+      <div id="strip-avatar"></div>
+      <div class="strip-info">
+        <div class="strip-name" id="strip-name">Loading...</div>
+        <div class="strip-usn" id="strip-usn">—</div>
+        <div class="strip-badges" id="strip-badges"></div>
+      </div>
+      <button class="strip-signout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-card"><div class="stat-val sv-blue" id="stat-cgpa">—</div><div class="stat-lbl">CGPA</div></div>
+      <div class="stat-card"><div class="stat-val sv-green" id="stat-att">—</div><div class="stat-lbl">Attendance</div></div>
+      <div class="stat-card"><div class="stat-val sv-orange" id="stat-grade">—</div><div class="stat-lbl">Grade</div></div>
+    </div>
+
+    <div class="section-label"><i class="fa-solid fa-bolt"></i> Quick Access</div>
+    <div class="quick-row">
+      <div class="quick-tile qt-blue" onclick="openAttendanceModal()"><i class="fa-solid fa-calendar-check"></i><span>Attendance</span></div>
+      <div class="quick-tile qt-bluemid" onclick="showToast('Mon-Sat | 9AM-4PM')"><i class="fa-solid fa-table-columns"></i><span>Time Table</span></div>
+      <div class="quick-tile qt-bluedk" onclick="openResultsModal()"><i class="fa-solid fa-chart-bar"></i><span>Results</span></div>
+      <div class="quick-tile qt-green" onclick="showFeeModal()"><i class="fa-solid fa-indian-rupee-sign"></i><span>Payment</span></div>
+    </div>
+
+    <div class="section-label"><i class="fa-solid fa-graduation-cap"></i> Academics</div>
+    <div class="icon-grid">
+      <div class="icon-tile" onclick="openAttendanceModal()"><div class="tile-icon ti-blue"><i class="fa-solid fa-calendar-check"></i></div><span>Attendance</span></div>
+      <div class="icon-tile" onclick="showToast('Mon-Sat | 9AM–4PM')"><div class="tile-icon ti-blue"><i class="fa-solid fa-table-columns"></i></div><span>Time Table</span></div>
+      <div class="icon-tile" onclick="openResultsModal()"><div class="tile-icon ti-blue"><i class="fa-solid fa-poll"></i></div><span>Results</span></div>
+      <div class="icon-tile" onclick="showToast('Report Card generated.')"><div class="tile-icon ti-blue"><i class="fa-solid fa-file-lines"></i></div><span>Reports</span></div>
+      <div class="icon-tile" onclick="showToast('VTU CBCS 2024 Scheme')"><div class="tile-icon ti-blue"><i class="fa-solid fa-sitemap"></i></div><span>Scheme</span></div>
+      <div class="icon-tile" onclick="showToast('Course Registration open until Oct 15.')"><div class="tile-icon ti-blue"><i class="fa-solid fa-table-list"></i></div><span>Course Reg.</span></div>
+    </div>
+
+    <div class="section-label"><i class="fa-solid fa-pen-to-square"></i> Exams</div>
+    <div class="icon-grid">
+      <div class="icon-tile" onclick="showToast('Quiz portal opening...')"><div class="tile-icon ti-purple"><i class="fa-solid fa-circle-question"></i></div><span>Quiz</span></div>
+      <div class="icon-tile" onclick="showToast('Mock Quiz: Practice test available.')"><div class="tile-icon ti-purple"><i class="fa-solid fa-clipboard-question"></i></div><span>Mock Quiz</span></div>
+      <div class="icon-tile" onclick="openResultsModal()"><div class="tile-icon ti-purple"><i class="fa-solid fa-star-half-stroke"></i></div><span>Quiz Result</span></div>
+      <div class="icon-tile" onclick="showToast('Mock Quiz Results available.')"><div class="tile-icon ti-purple"><i class="fa-solid fa-chart-simple"></i></div><span>Mock Result</span></div>
+      <div class="icon-tile" onclick="openHallTicket()"><div class="tile-icon ti-purple"><i class="fa-solid fa-ticket"></i></div><span>Hall Ticket</span></div>
+      <div class="icon-tile" onclick="showToast('Exam Seating: Auditorium 2, Row C.')"><div class="tile-icon ti-purple"><i class="fa-solid fa-chair"></i></div><span>Exam Seating</span></div>
+      <div class="icon-tile" onclick="showToast('Re-Apply Exam portal closed.')"><div class="tile-icon ti-purple"><i class="fa-solid fa-rotate-right"></i></div><span>Re-Apply Exam</span></div>
+    </div>
+
+    <div class="section-label"><i class="fa-solid fa-wallet"></i> Finance</div>
+    <div class="icon-grid">
+      <div class="icon-tile" onclick="showFeeModal()"><div class="tile-icon ti-green"><i class="fa-solid fa-receipt"></i></div><span>Fee Details</span></div>
+      <div class="icon-tile" onclick="showToast('Scholarship status: Applied.')"><div class="tile-icon ti-green"><i class="fa-solid fa-hand-holding-dollar"></i></div><span>Scholarship</span></div>
+      <div class="icon-tile" onclick="showToast('Fee Receipt generated.')"><div class="tile-icon ti-green"><i class="fa-solid fa-file-invoice-dollar"></i></div><span>Fee Receipt</span></div>
+      <div class="icon-tile" onclick="showToast('Online payment portal opening...')"><div class="tile-icon ti-green"><i class="fa-solid fa-credit-card"></i></div><span>Pay Now</span></div>
+    </div>
+
+    <div class="section-label"><i class="fa-solid fa-building-columns"></i> Campus</div>
+    <div class="icon-grid">
+      <div class="icon-tile" onclick="showToast('Academic Calendar: Finals start Nov 12.')"><div class="tile-icon ti-red"><i class="fa-solid fa-calendar-days"></i></div><span>Calendar</span></div>
+      <div class="icon-tile" onclick="showToast('Events: Placement Drive — Dec 2, 2026.')"><div class="tile-icon ti-red"><i class="fa-solid fa-calendar-star"></i></div><span>Events</span></div>
+      <div class="icon-tile" onclick="showToast('Campus Map loading...')"><div class="tile-icon ti-red"><i class="fa-solid fa-map-location-dot"></i></div><span>Campus Mgmt</span></div>
+      <div class="icon-tile" onclick="openStudentIdCard()"><div class="tile-icon ti-red"><i class="fa-solid fa-qrcode"></i></div><span>Lab Scanner</span></div>
+      <div class="icon-tile" onclick="showToast('Mass Attendance: 3 sessions today.')"><div class="tile-icon ti-red"><i class="fa-solid fa-users-rectangle"></i></div><span>Mass Attend.</span></div>
+      <div class="icon-tile" onclick="showToast('Bus Route #04: Davangere City Loop.')"><div class="tile-icon ti-red"><i class="fa-solid fa-bus"></i></div><span>Bus Route</span></div>
+    </div>
+
+    <div class="section-label"><i class="fa-solid fa-users"></i> Community</div>
+    <div class="icon-grid">
+      <div class="icon-tile" onclick="showToast('My Buddies: 12 classmates connected.')"><div class="tile-icon ti-amber"><i class="fa-solid fa-handshake"></i></div><span>My Buddies</span></div>
+      <div class="icon-tile" onclick="showToast('Discussion Forum: 3 new posts.')"><div class="tile-icon ti-amber"><i class="fa-solid fa-comments"></i></div><span>Discussion Forum</span></div>
+      <div class="icon-tile" onclick="showToast('Live Interaction: 1 faculty session online.')"><div class="tile-icon ti-amber"><i class="fa-solid fa-broadcast-tower"></i></div><span>Live Interaction</span></div>
+    </div>
+
+    <div class="section-label"><i class="fa-solid fa-circle-info"></i> Info</div>
+    <div class="icon-grid">
+      <div class="icon-tile" onclick="showToast('Latest News: GMIT ranked in QS India 2025.')"><div class="tile-icon ti-teal"><i class="fa-solid fa-newspaper"></i></div><span>Latest News</span></div>
+      <div class="icon-tile" onclick="showToast('GMIT: Accredited NBA and NAAC-A.')"><div class="tile-icon ti-teal"><i class="fa-solid fa-circle-info"></i></div><span>GMIT Info</span></div>
+      <div class="icon-tile" onclick="showToast('Library OPAC: 2 books issued.')"><div class="tile-icon ti-teal"><i class="fa-solid fa-book-open-reader"></i></div><span>Library OPAC</span></div>
+      <div class="icon-tile" onclick="showToast('Grievances: 0 open tickets.')"><div class="tile-icon ti-teal"><i class="fa-solid fa-comment-dots"></i></div><span>Grievances</span></div>
+      <div class="icon-tile" onclick="showToast('Thank you for your feedback!')"><div class="tile-icon ti-teal"><i class="fa-solid fa-star"></i></div><span>Feedback</span></div>
+    </div>
+
+    <div style="text-align:center;color:var(--text-subtle);font-size:.65rem;margin-top:1.5rem;padding-bottom:.5rem;">v5.8.4 (139) &bull; GMIT ERP 2026</div>
+  </div>
+
+  <button class="fab" onclick="openStudentIdCard()" title="Smart ID Card"><i class="fa-solid fa-id-badge"></i></button>
+
+  <nav class="bottom-nav">
+    <div class="bnav-item active"><i class="fa-solid fa-house"></i><span>Home</span></div>
+    <div class="bnav-item" onclick="openResultsModal()"><i class="fa-solid fa-chart-bar"></i><span>Results</span></div>
+    <div class="bnav-item" onclick="openStudentIdCard()"><i class="fa-solid fa-qrcode"></i><span>ID Card</span></div>
+    <div class="bnav-item" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></div>
+  </nav>
+
+  <div class="toast" id="toast-msg"></div>
+
+  <script type="module">
+    import QRCode from './scripts/utils/qrcode.js';
+
+    function initials(name) {
+      if (!name) return '?';
+      const p = name.trim().split(' ').filter(Boolean);
+      return p.length >= 2 ? (p[0][0] + p[p.length-1][0]).toUpperCase() : p[0][0].toUpperCase();
+    }
+    const PALLETE = ['#2a5bd7','#15a85f','#6b3ebb','#d63031','#e17b2f','#0093a8','#a52a2a'];
+    function avatarBg(name) {
+      let h = 0;
+      for (const c of (name||'X')) h = (h * 31 + c.charCodeAt(0)) & 0xffffff;
+      return PALLETE[Math.abs(h) % PALLETE.length];
+    }
+
+    const raw = sessionStorage.getItem('aura_student_session');
+    if (!raw) { window.location.href = 'login.html'; }
+    const S = JSON.parse(raw);
+    window.__ATT = S.attendance || 94;
+    window.__FEE = S.feeStatus || 'Unknown';
+
+    const ini = initials(S.name);
+    const bg  = avatarBg(S.name);
+
+    document.getElementById('hdr-ini').textContent   = ini;
+    document.getElementById('hdr-ini').style.background = bg;
+    document.getElementById('hdr-dept').textContent = (S.department||'CSE').replace('Computer Science & Engineering','CSE');
+    document.getElementById('strip-name').textContent = S.name;
+    document.getElementById('strip-usn').textContent  = S.id + ' \u2022 ' + (S.year || '1st Year');
+    document.getElementById('strip-avatar').innerHTML =
+      `<div style="width:46px;height:46px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:#fff;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.12);flex-shrink:0;">${ini}</div>`;
+
+    const paid = S.feeStatus === 'Paid';
+    document.getElementById('strip-badges').innerHTML =
+      `<span class="strip-badge" style="background:${paid?'#e4f7ef':'#ffeaea'};color:${paid?'#15a85f':'#d63031'};">${paid?'Fees Cleared':'Fee Due'}</span>` +
+      `<span class="strip-badge" style="background:#e8eeff;color:#2a5bd7;">${S.riskLevel||'Good'} Risk</span>`;
+
+    document.getElementById('stat-cgpa').textContent  = typeof S.cgpa==='number' ? S.cgpa.toFixed(2) : '\u2014';
+    document.getElementById('stat-att').textContent   = (S.attendance||'\u2014') + '%';
+    document.getElementById('stat-grade').textContent = S.recentGrade || '\u2014';
+
+    function getQRPayload() {
+      return JSON.stringify({ institution:'GMIT DAVANGERE', usn:S.id, name:S.name, dept:S.department, batch:S.year||'2024 Batch', phone:S.phone||'9481100246' });
+    }
+
+    window.logout = function() { sessionStorage.removeItem('aura_student_session'); window.location.href = 'login.html'; };
+
+    window.showToast = function(msg) {
+      const t = document.getElementById('toast-msg');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2600);
+    };
+
+    window.filterTiles = function(q) {
+      q = q.toLowerCase().trim();
+      document.querySelectorAll('.icon-tile').forEach(el => {
+        const txt = el.querySelector('span')?.textContent.toLowerCase() || '';
+        el.style.display = (!q || txt.includes(q)) ? '' : 'none';
+      });
+    };
+
+    window.openStudentIdCard = function() {
+      const payload = getQRPayload();
+      let qrSvg = '';
+      try { qrSvg = QRCode.generateSVG(payload, { size:110, margin:1, colorDark:'#0f172a' }); }
+      catch(e) { console.error('QR error:',e); }
+      const avMk = `<div style="width:78px;height:88px;border-radius:6px;background:${bg};display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:#fff;border:2px solid #d97706;flex-shrink:0;">${ini}</div>`;
+      const html = `<div class="modal-backdrop" id="student-modal-backdrop" onclick="if(event.target===this)this.remove()">
+        <div class="modal-box">
+          <div class="modal-header">
+            <div class="modal-title"><i class="fa-solid fa-id-badge" style="color:#d97706;"></i> GMIT Smart Student ID</div>
+            <button class="modal-close" onclick="document.getElementById('student-modal-backdrop').remove()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="id-card" id="gmit-id-card-printable">
+              <div class="id-card-top">
+                <div class="trust">SRISHYLA EDUCATIONAL TRUST (R), BHEEMASAMUDRA</div>
+                <div class="college-row"><img src="assets/gmit-logo.svg" alt="GMIT"><div class="college-name">GM INSTITUTE OF TECHNOLOGY</div></div>
+                <div class="college-sub">Davangere - 577006 | Affiliated to VTU Belagavi</div>
+              </div>
+              <div class="id-card-body">
+                <div style="display:flex;gap:.85rem;align-items:center;margin-bottom:.75rem;">
+                  ${avMk}
+                  <div>
+                    <div style="font-size:.95rem;font-weight:800;color:#0f172a;">${S.name}</div>
+                    <div style="background:#fef3c7;color:#b45309;display:inline-block;font-size:.72rem;font-weight:800;padding:2px 6px;border-radius:4px;margin:3px 0;">USN: ${S.id}</div>
+                    <div style="font-size:.7rem;color:#334155;font-weight:600;">${S.department}</div>
+                    <div style="font-size:.66rem;color:#64748b;">Batch: ${S.year||'2024 Batch'}</div>
+                  </div>
+                </div>
+                <div class="id-card-grid">
+                  <div><span style="color:#64748b;">Blood Group:</span> <strong style="color:#dc2626;">O+</strong></div>
+                  <div><span style="color:#64748b;">Validity:</span> <strong>2024 - 2028</strong></div>
+                  <div><span style="color:#64748b;">Contact:</span> <strong>${S.phone||'9481100246'}</strong></div>
+                  <div><span style="color:#64748b;">Hostel:</span> <strong>${S.hostelRoom||'Day Scholar'}</strong></div>
+                </div>
+                <div class="id-card-qr-row">
+                  <div style="text-align:center;flex:1;">
+                    <div style="margin:0 auto;width:114px;height:114px;padding:3px;background:#fff;border:1px solid #e2e8f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">${qrSvg}</div>
+                    <div style="font-size:.56rem;color:#64748b;font-weight:700;margin-top:2px;">OFFICIAL SCANNABLE QR CODE</div>
+                  </div>
+                  <div style="text-align:right;font-size:.6rem;color:#475569;padding-left:.5rem;">
+                    <div style="margin-bottom:.75rem;"><div style="font-family:cursive;font-size:.82rem;color:#0f172a;">Eleanor Vance</div><div style="border-top:1px solid #94a3b8;font-weight:700;">Dean Academics</div></div>
+                    <div><div style="font-family:cursive;font-size:.82rem;color:#0f172a;">Y. Vijaya Kumar</div><div style="border-top:1px solid #94a3b8;font-weight:700;">Principal / GMIT</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="id-card-footer">&#9733; GMIT DIGITAL SMART STUDENT PASS &bull; OFFICIAL &#9733;</div>
+            </div>
+            <div style="display:flex;gap:.5rem;margin-top:.9rem;">
+              <button onclick="document.getElementById('student-modal-backdrop').remove()" style="flex:1;padding:.6rem;background:#f1f5f9;border:none;border-radius:8px;font-weight:700;cursor:pointer;color:#475569;">Close</button>
+              <button onclick="downloadIdCardPdf()" style="flex:1.5;padding:.6rem;background:linear-gradient(135deg,#d97706,#ea580c);border:none;border-radius:8px;color:#fff;font-weight:800;cursor:pointer;"><i class="fa-solid fa-download"></i> Save PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+      const ex = document.getElementById('student-modal-backdrop');
+      if (ex) ex.remove();
+      document.body.insertAdjacentHTML('beforeend', html);
+    };
+
+    window.downloadIdCardPdf = function() {
+      const el = document.getElementById('gmit-id-card-printable');
+      if (el && window.html2pdf) window.html2pdf().from(el).save(`${S.id}_GMIT_Smart_ID_Card.pdf`);
+    };
+
+    window.openResultsModal = function() {
+      const COURSES = [
+        { code:'24CS101', name:'Data Structures & Algorithms', color:'#2a5bd7' },
+        { code:'24CS102', name:'OOP with C++', color:'#6b3ebb' },
+        { code:'24CS103', name:'Computer Networks', color:'#15a85f' },
+        { code:'24CS104', name:'Operating Systems', color:'#e17b2f' },
+        { code:'24CS105', name:'Database Systems', color:'#d63031' },
+      ];
+      const gc = g => ({'O':'#15a85f','A+':'#15a85f','A':'#2a5bd7','B+':'#6b3ebb','B':'#6b3ebb','C':'#e17b2f','D':'#d63031','F':'#d63031'}[g]||'#666');
+      const rows = COURSES.map(c => {
+        const sp = S.subjectPerformance && S.subjectPerformance[c.code] ? S.subjectPerformance[c.code] : null;
+        const grade = sp ? sp.grade : (S.recentGrade||'A');
+        const att = sp ? sp.attendance : (S.attendance||94);
+        const ia = sp ? sp.iaMarks : 25;
+        const tot = sp ? sp.totalMarks : 85;
+        return `<div style="display:grid;grid-template-columns:1fr 50px 40px 50px 45px;align-items:center;gap:.4rem;padding:.65rem 0;border-bottom:1px solid #f1f5f9;font-size:.78rem;">
+          <div><div style="font-weight:700;color:${c.color};">${c.code}</div><div style="color:#475569;font-size:.68rem;">${c.name}</div></div>
+          <div style="text-align:center;font-weight:700;">${att}%</div>
+          <div style="text-align:center;font-weight:700;">${ia}/30</div>
+          <div style="text-align:center;font-weight:700;">${tot}/100</div>
+          <div style="text-align:center;"><span style="background:${gc(grade)}20;color:${gc(grade)};padding:2px 7px;border-radius:20px;font-weight:800;font-size:.72rem;">${grade}</span></div>
+        </div>`;
+      }).join('');
+      const html = `<div class="modal-backdrop" id="results-modal" onclick="if(event.target===this)this.remove()">
+        <div class="modal-box">
+          <div class="modal-header">
+            <div class="modal-title"><i class="fa-solid fa-chart-bar" style="color:#2a5bd7;"></i> Academic Results</div>
+            <button class="modal-close" onclick="document.getElementById('results-modal').remove()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div style="display:grid;grid-template-columns:1fr 50px 40px 50px 45px;gap:.4rem;padding:.4rem 0;font-size:.65rem;font-weight:800;text-transform:uppercase;color:#94a3b8;border-bottom:2px solid #f1f5f9;letter-spacing:.4px;">
+              <div>Subject</div><div style="text-align:center;">Att.</div><div style="text-align:center;">IA</div><div style="text-align:center;">Total</div><div style="text-align:center;">Grade</div>
+            </div>
+            ${rows}
+            <div style="margin-top:.75rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem;text-align:center;">
+              <div style="background:#e8eeff;border-radius:10px;padding:.65rem;"><div style="font-size:1.2rem;font-weight:800;color:#2a5bd7;">${typeof S.cgpa==='number'?S.cgpa.toFixed(2):'—'}</div><div style="font-size:.62rem;color:#666;">CGPA</div></div>
+              <div style="background:#e4f7ef;border-radius:10px;padding:.65rem;"><div style="font-size:1.2rem;font-weight:800;color:#15a85f;">${S.attendance||'—'}%</div><div style="font-size:.62rem;color:#666;">Overall Att.</div></div>
+              <div style="background:#fff3e8;border-radius:10px;padding:.65rem;"><div style="font-size:1.2rem;font-weight:800;color:#e17b2f;">${S.recentGrade||'—'}</div><div style="font-size:.62rem;color:#666;">Recent</div></div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+      const ex = document.getElementById('results-modal');
+      if (ex) ex.remove();
+      document.body.insertAdjacentHTML('beforeend', html);
+    };
+
+    window.openHallTicket = function() {
+      const html = `<div class="modal-backdrop" id="hall-modal" onclick="if(event.target===this)this.remove()">
+        <div class="modal-box">
+          <div class="modal-header">
+            <div class="modal-title"><i class="fa-solid fa-ticket" style="color:#6b3ebb;"></i> Hall Ticket</div>
+            <button class="modal-close" onclick="document.getElementById('hall-modal').remove()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div style="background:#f0eaff;border-radius:12px;padding:1rem;border:1px solid #e0d4ff;text-align:center;margin-bottom:1rem;">
+              <div style="font-size:.7rem;color:#6b3ebb;font-weight:800;margin-bottom:.3rem;">VTU SEMESTER EXAMINATION 2026</div>
+              <div style="font-size:.85rem;font-weight:700;color:#1a1a1a;">${S.name}</div>
+              <div style="font-size:.72rem;color:#475569;">USN: ${S.id} | ${S.department}</div>
+              <div style="font-size:.7rem;color:#6b3ebb;margin-top:.4rem;font-weight:700;">Exam: Nov 12 – Nov 20, 2026</div>
+              <div style="font-size:.7rem;color:#666;">Venue: Auditorium Block 2 | GMIT Campus</div>
+            </div>
+            <div style="font-size:.75rem;color:#666;line-height:1.7;">
+              <div style="font-weight:700;color:#1a1a1a;margin-bottom:.3rem;">Instructions:</div>
+              <div>1. Bring this hall ticket on every exam day.</div>
+              <div>2. Report 30 minutes before exam time.</div>
+              <div>3. Mobile phones strictly prohibited.</div>
+            </div>
+            <button onclick="document.getElementById('hall-modal').remove()" style="width:100%;margin-top:.85rem;padding:.65rem;background:linear-gradient(135deg,#6b3ebb,#9155e0);border:none;border-radius:8px;color:#fff;font-weight:700;cursor:pointer;">Download Hall Ticket</button>
+          </div>
+        </div>
+      </div>`;
+      const ex = document.getElementById('hall-modal'); if (ex) ex.remove();
+      document.body.insertAdjacentHTML('beforeend', html);
+    };
+
+    // ── Attendance Modal ─────────────────────────────────────────────────────
+    window.openAttendanceModal = function() {
+      const SUBJECTS = [
+        { code:'24CS101', name:'Data Structures', short:'DS', color:'#2a5bd7' },
+        { code:'24CS102', name:'OOP with C++',    short:'OOP', color:'#6b3ebb' },
+        { code:'24CS103', name:'Computer Networks', short:'CN', color:'#15a85f' },
+        { code:'24CS104', name:'Operating Systems', short:'OS', color:'#e17b2f' },
+        { code:'24CS105', name:'Database Systems',  short:'DBMS', color:'#d63031' },
+      ];
+
+      // Build subject attendance data from session
+      const subData = SUBJECTS.map(sub => {
+        const sp = S.subjectPerformance && S.subjectPerformance[sub.code];
+        const att = sp ? sp.attendance : (S.attendance || 94);
+        return { ...sub, att };
+      });
+
+      const overall = Math.round(subData.reduce((a,s)=>a+s.att,0)/subData.length);
+
+      // Build a simulated attendance calendar for current month (October 2026)
+      // Status per day: 'P'=present, 'A'=absent, 'NC'=no class, ''=future/sunday
+      const today = new Date(2026, 9, 4); // Oct 4 2026
+      const year = 2026, month = 9; // October (0-indexed)
+      const daysInMonth = 31;
+      const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+
+      // Simulate attendance log (weekdays only, random based on student att%)
+      const seed = S.id ? S.id.charCodeAt(S.id.length-1) : 1;
+      const attPct = (S.attendance || 94) / 100;
+      const calDays = [];
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dow = new Date(year, month, d).getDay();
+        if (dow === 0) { calDays.push({ d, status: 'SUN' }); continue; } // Sunday
+        if (d > today.getDate()) { calDays.push({ d, status: 'FUT' }); continue; } // future
+        // Saturday = half day / practical only = NC sometimes
+        if (dow === 6) { calDays.push({ d, status: ((seed * d) % 3 === 0) ? 'NC' : ((d + seed) % 5 < 1 ? 'A' : 'P') }); continue; }
+        // Weekday
+        const rng = ((seed * 7 + d * 13) % 100);
+        calDays.push({ d, status: rng < (attPct * 100 - 5) ? 'P' : (rng < 97 ? 'A' : 'NC') });
+      }
+
+      const totalClasses = calDays.filter(x=>x.status==='P'||x.status==='A').length;
+      const attended    = calDays.filter(x=>x.status==='P').length;
+      const absent      = calDays.filter(x=>x.status==='A').length;
+
+      // Calendar HTML
+      const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      let calRows = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:0.5rem;">';
+      // headers
+      dayNames.forEach(dn => {
+        calRows += `<div style="text-align:center;font-size:0.58rem;font-weight:800;color:#94a3b8;padding:2px 0;">${dn}</div>`;
+      });
+      // blank cells before 1st
+      for (let i=0;i<firstDay;i++) calRows += '<div></div>';
+      // day cells
+      calDays.forEach(({ d, status }) => {
+        let bg='#f1f5f9', color='#94a3b8', border='none', txt='';
+        if (status==='P') { bg='#dcfce7'; color='#15803d'; border='1px solid #86efac'; txt='P'; }
+        else if (status==='A') { bg='#fee2e2'; color='#dc2626'; border='1px solid #fca5a5'; txt='A'; }
+        else if (status==='NC') { bg='#f3f4f6'; color='#9ca3af'; border='1px dashed #d1d5db'; txt='-'; }
+        else if (status==='SUN') { bg='transparent'; color='#e5e7eb'; }
+        else { bg='transparent'; color='#cbd5e1'; } // future
+        const isTd = (d===today.getDate() && status!=='FUT' && status!=='SUN');
+        calRows += `<div style="text-align:center;border-radius:5px;padding:3px 1px;background:${bg};color:${color};border:${isTd?'2px solid #2a5bd7':border};font-size:0.6rem;font-weight:700;position:relative;">
+          <div>${d}</div>
+          <div style="font-size:0.48rem;margin-top:1px;">${txt}</div>
+        </div>`;
+      });
+      calRows += '</div>';
+
+      // Subject attendance bar chart (SVG)
+      const chartW = 320, chartH = 160, barW = 38, barGap = 12, padL = 32, padB = 28;
+      const maxH = chartH - padB - 10;
+      let svgBars = `<svg width="100%" viewBox="0 0 ${chartW} ${chartH}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">`;
+      // Y axis lines
+      [0,25,50,75,100].forEach(v => {
+        const y = chartH - padB - (v/100)*maxH;
+        svgBars += `<line x1="${padL}" y1="${y}" x2="${chartW-8}" y2="${y}" stroke="#e5e7eb" stroke-width="0.8"/>`;
+        svgBars += `<text x="${padL-4}" y="${y+3}" text-anchor="end" font-size="7" fill="#9ca3af">${v}</text>`;
+      });
+      // 75% danger line
+      const dangerY = chartH - padB - 0.75*maxH;
+      svgBars += `<line x1="${padL}" y1="${dangerY}" x2="${chartW-8}" y2="${dangerY}" stroke="#fca5a5" stroke-width="1" stroke-dasharray="3,2"/>`;
+      svgBars += `<text x="${chartW-6}" y="${dangerY-2}" font-size="6" fill="#dc2626" font-weight="700">75%</text>`;
+      // Bars
+      subData.forEach((sub, i) => {
+        const x = padL + i*(barW+barGap);
+        const barH2 = (sub.att/100)*maxH;
+        const y = chartH - padB - barH2;
+        const barColor = sub.att >= 85 ? '#15a85f' : sub.att >= 75 ? '#f59e0b' : '#d63031';
+        svgBars += `<rect x="${x}" y="${y}" width="${barW}" height="${barH2}" rx="4" fill="${barColor}" opacity="0.85"/>`;
+        svgBars += `<text x="${x+barW/2}" y="${y-3}" text-anchor="middle" font-size="7.5" fill="${barColor}" font-weight="800">${sub.att}%</text>`;
+        svgBars += `<text x="${x+barW/2}" y="${chartH-padB+12}" text-anchor="middle" font-size="6.5" fill="#475569" font-weight="700">${sub.short}</text>`;
+      });
+      svgBars += '</svg>';
+
+      // Subject list rows
+      const subRows = subData.map(sub => {
+        const barPct = sub.att;
+        const barColor = barPct>=85?'#15a85f':barPct>=75?'#f59e0b':'#d63031';
+        const status   = barPct>=85?'Good':barPct>=75?'Warning':'At-Risk';
+        const sBg      = barPct>=85?'#dcfce7':barPct>=75?'#fef9c3':'#fee2e2';
+        const sClr     = barPct>=85?'#15803d':barPct>=75?'#b45309':'#dc2626';
+        return `<div style="margin-bottom:0.6rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+            <div style="display:flex;align-items:center;gap:0.4rem;">
+              <div style="width:8px;height:8px;border-radius:2px;background:${sub.color};flex-shrink:0;"></div>
+              <div style="font-size:0.72rem;font-weight:700;color:#1a1a1a;">${sub.name}</div>
+              <div style="font-size:0.62rem;color:#9ca3af;">${sub.code}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.4rem;">
+              <span style="background:${sBg};color:${sClr};font-size:0.6rem;font-weight:800;padding:1px 6px;border-radius:20px;">${status}</span>
+              <span style="font-size:0.8rem;font-weight:800;color:${barColor};">${barPct}%</span>
+            </div>
+          </div>
+          <div style="height:8px;background:#f1f5f9;border-radius:8px;overflow:hidden;">
+            <div style="height:100%;width:${barPct}%;background:${barColor};border-radius:8px;transition:width 1s ease;"></div>
+          </div>
+        </div>`;
+      }).join('');
+
+      const html = `<div class="modal-backdrop" id="att-modal" onclick="if(event.target===this)this.remove()">
+        <div class="modal-box" style="max-width:420px;">
+          <div class="modal-header">
+            <div class="modal-title"><i class="fa-solid fa-calendar-check" style="color:#2a5bd7;"></i> Attendance Details</div>
+            <button class="modal-close" onclick="document.getElementById('att-modal').remove()">&times;</button>
+          </div>
+          <div class="modal-body" style="padding:1rem;">
+
+            <!-- Summary Strip -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.4rem;margin-bottom:1rem;">
+              <div style="background:#e8eeff;border-radius:10px;padding:0.55rem 0.4rem;text-align:center;">
+                <div style="font-size:1.1rem;font-weight:900;color:#2a5bd7;">${overall}%</div>
+                <div style="font-size:0.58rem;color:#64748b;font-weight:600;">Overall</div>
+              </div>
+              <div style="background:#dcfce7;border-radius:10px;padding:0.55rem 0.4rem;text-align:center;">
+                <div style="font-size:1.1rem;font-weight:900;color:#15803d;">${attended}</div>
+                <div style="font-size:0.58rem;color:#64748b;font-weight:600;">Present</div>
+              </div>
+              <div style="background:#fee2e2;border-radius:10px;padding:0.55rem 0.4rem;text-align:center;">
+                <div style="font-size:1.1rem;font-weight:900;color:#dc2626;">${absent}</div>
+                <div style="font-size:0.58rem;color:#64748b;font-weight:600;">Absent</div>
+              </div>
+              <div style="background:#f3f4f6;border-radius:10px;padding:0.55rem 0.4rem;text-align:center;">
+                <div style="font-size:1.1rem;font-weight:900;color:#6b7280;">${totalClasses-attended-absent}</div>
+                <div style="font-size:0.58rem;color:#64748b;font-weight:600;">No Class</div>
+              </div>
+            </div>
+
+            <!-- Tab buttons -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.4rem;margin-bottom:0.9rem;">
+              <button onclick="attTab('calendar',this)" id="tab-calendar" style="padding:0.45rem 0.2rem;border:none;border-radius:8px;font-size:0.72rem;font-weight:700;cursor:pointer;background:#2a5bd7;color:#fff;">📅 Calendar</button>
+              <button onclick="attTab('subjects',this)" id="tab-subjects" style="padding:0.45rem 0.2rem;border:none;border-radius:8px;font-size:0.72rem;font-weight:700;cursor:pointer;background:#f1f5f9;color:#475569;">📊 Subjects</button>
+              <button onclick="attTab('chart',this)"   id="tab-chart"   style="padding:0.45rem 0.2rem;border:none;border-radius:8px;font-size:0.72rem;font-weight:700;cursor:pointer;background:#f1f5f9;color:#475569;">📈 Graph</button>
+            </div>
+
+            <!-- Calendar Tab -->
+            <div id="att-tab-calendar">
+              <div style="font-size:0.78rem;font-weight:800;color:#1a1a1a;margin-bottom:0.3rem;text-align:center;">October 2026</div>
+              ${calRows}
+              <div style="display:flex;gap:0.6rem;justify-content:center;margin-top:0.65rem;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:4px;font-size:0.62rem;font-weight:700;"><div style="width:10px;height:10px;border-radius:3px;background:#dcfce7;border:1px solid #86efac;"></div>Present</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:0.62rem;font-weight:700;"><div style="width:10px;height:10px;border-radius:3px;background:#fee2e2;border:1px solid #fca5a5;"></div>Absent</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:0.62rem;font-weight:700;"><div style="width:10px;height:10px;border-radius:3px;background:#f3f4f6;border:1px dashed #d1d5db;"></div>No Class</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:0.62rem;font-weight:700;"><div style="width:10px;height:10px;border-radius:3px;border:2px solid #2a5bd7;"></div>Today</div>
+              </div>
+            </div>
+
+            <!-- Subjects Tab -->
+            <div id="att-tab-subjects" style="display:none;">
+              ${subRows}
+              <div style="margin-top:0.5rem;background:#fff9f0;border-radius:8px;padding:0.55rem 0.75rem;border:1px solid #fed7aa;font-size:0.68rem;color:#92400e;">
+                <i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Minimum 75% attendance required per subject. Below 85% = Warning.
+              </div>
+            </div>
+
+            <!-- Chart Tab -->
+            <div id="att-tab-chart" style="display:none;">
+              <div style="font-size:0.72rem;font-weight:700;color:#475569;margin-bottom:0.4rem;text-align:center;">Subject-wise Attendance Bar Chart</div>
+              <div style="background:#fafafa;border-radius:10px;padding:0.75rem 0.5rem;border:1px solid #e5e7eb;overflow:hidden;">
+                ${svgBars}
+              </div>
+              <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:0.55rem;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:4px;font-size:0.6rem;font-weight:700;"><div style="width:10px;height:10px;border-radius:2px;background:#15a85f;"></div>Good (≥85%)</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:0.6rem;font-weight:700;"><div style="width:10px;height:10px;border-radius:2px;background:#f59e0b;"></div>Warning (75–84%)</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:0.6rem;font-weight:700;"><div style="width:10px;height:10px;border-radius:2px;background:#d63031;"></div>At-Risk (&lt;75%)</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>`;
+      const ex = document.getElementById('att-modal'); if (ex) ex.remove();
+      document.body.insertAdjacentHTML('beforeend', html);
+    };
+
+    window.attTab = function(tab, btn) {
+      ['calendar','subjects','chart'].forEach(t => {
+        document.getElementById('att-tab-'+t).style.display = (t===tab)?'block':'none';
+      });
+      ['tab-calendar','tab-subjects','tab-chart'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.style.background = id==='tab-'+tab?'#2a5bd7':'#f1f5f9'; el.style.color = id==='tab-'+tab?'#fff':'#475569'; }
+      });
+    };
+
+    window.showFeeModal = function() {
+      const paid = S.feeStatus === 'Paid';
+      const html = `<div class="modal-backdrop" id="fee-modal" onclick="if(event.target===this)this.remove()">
+        <div class="modal-box">
+          <div class="modal-header">
+            <div class="modal-title"><i class="fa-solid fa-wallet" style="color:#15a85f;"></i> Fee Details</div>
+            <button class="modal-close" onclick="document.getElementById('fee-modal').remove()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div style="background:${paid?'#e4f7ef':'#ffeaea'};border-radius:12px;padding:1rem;text-align:center;margin-bottom:.85rem;border:1px solid ${paid?'#b2edcf':'#ffc5c5'};">
+              <div style="font-size:2rem;">${paid?'✅':'⚠️'}</div>
+              <div style="font-size:1rem;font-weight:800;color:${paid?'#15a85f':'#d63031'};margin-top:.25rem;">${paid?'Fees Fully Cleared':'Fee Payment Pending'}</div>
+              <div style="font-size:.72rem;color:#666;">${paid?'Academic Year 2024-25 fees cleared':'₹'+((S.feePending||0).toLocaleString())+' pending'}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.78rem;">
+              <div style="background:#f8fafc;border-radius:8px;padding:.65rem;border:1px solid #e2e8f0;"><div style="color:#94a3b8;font-size:.65rem;">Semester Fee</div><div style="font-weight:800;margin-top:2px;">₹1,85,000</div></div>
+              <div style="background:#f8fafc;border-radius:8px;padding:.65rem;border:1px solid #e2e8f0;"><div style="color:#94a3b8;font-size:.65rem;">Hostel / Room</div><div style="font-weight:800;margin-top:2px;">${S.hostelRoom||'Day Scholar'}</div></div>
+            </div>
+            <button onclick="document.getElementById('fee-modal').remove()" style="width:100%;margin-top:.85rem;padding:.65rem;background:linear-gradient(135deg,#15a85f,#059669);border:none;border-radius:8px;color:#fff;font-weight:700;cursor:pointer;">${paid?'View Receipt':'Pay Now'}</button>
+          </div>
+        </div>
+      </div>`;
+      const ex = document.getElementById('fee-modal'); if (ex) ex.remove();
+      document.body.insertAdjacentHTML('beforeend', html);
+    };
+  </script>
+</body>
+</html>

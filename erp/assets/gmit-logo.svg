@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <radialGradient id="hexBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="60%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="50%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+
+    <!-- Curved Text Paths -->
+    <!-- Top Arc (radius 118) -->
+    <path id="topTextArc" d="M 32,150 A 118,118 0 1,1 268,150" fill="none" />
+    <!-- Bottom Arc (radius 118) -->
+    <path id="bottomTextArc" d="M 268,150 A 118,118 0 0,1 32,150" fill="none" />
+  </defs>
+
+  <!-- Outer Double Circle Border -->
+  <circle cx="150" cy="150" r="144" fill="#ffffff" stroke="#1e293b" stroke-width="4.5"/>
+  <circle cx="150" cy="150" r="136" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Text in the Outer Ring -->
+  <text font-family="'Plus Jakarta Sans', 'Outfit', sans-serif" font-weight="900" font-size="13.2" fill="#0f172a" letter-spacing="1.2">
+    <textPath href="#topTextArc" startOffset="50%" text-anchor="middle">
+      GM INSTITUTE OF TECHNOLOGY, DAVANGERE
+    </textPath>
+  </text>
+  
+  <text font-family="'Plus Jakarta Sans', 'Outfit', sans-serif" font-weight="800" font-size="11.5" fill="#d97706" letter-spacing="2">
+    <textPath href="#bottomTextArc" startOffset="50%" text-anchor="middle">
+      ★ PROVIDES HI-TECH EDUCATION ★
+    </textPath>
+  </text>
+
+  <!-- Inner Circle Border -->
+  <circle cx="150" cy="150" r="96" fill="#f0fdf4" stroke="#0f172a" stroke-width="3"/>
+
+  <!-- Inner Cyan Hexagon Background -->
+  <polygon points="150,60 228,105 228,195 150,240 72,195 72,105" fill="url(#hexBg)" stroke="#0284c7" stroke-width="2"/>
+
+  <!-- Gear Wheel Background -->
+  <g transform="translate(150,150) scale(0.65)" fill="#0369a1" opacity="0.35">
+    <circle cx="0" cy="0" r="80" stroke="#bae6fd" stroke-width="12" stroke-dasharray="24 18" fill="none"/>
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#bae6fd" stroke-width="6"/>
+  </g>
+
+  <!-- GMIT Central Graphical Elements -->
+  <!-- 1. Drafting Set-Square & Ruler -->
+  <g transform="translate(142, 110)">
+    <!-- Set square triangle -->
+    <polygon points="0,75 55,75 55,20" fill="url(#silverGrad)" stroke="#1e293b" stroke-width="2.5" />
+    <polygon points="12,70 47,70 47,35" fill="#38bdf8" stroke="#1e293b" stroke-width="1.5" />
+    <!-- Ruler marks -->
+    <line x1="55" y1="30" x2="49" y2="30" stroke="#0f172a" stroke-width="1.5"/>
+    <line x1="55" y1="40" x2="49" y2="40" stroke="#0f172a" stroke-width="1.5"/>
+    <line x1="55" y1="50" x2="49" y2="50" stroke="#0f172a" stroke-width="1.5"/>
+    <line x1="55" y1="60" x2="49" y2="60" stroke="#0f172a" stroke-width="1.5"/>
+    <line x1="10" y1="75" x2="10" y2="69" stroke="#0f172a" stroke-width="1.5"/>
+    <line x1="20" y1="75" x2="20" y2="69" stroke="#0f172a" stroke-width="1.5"/>
+    <line x1="30" y1="75" x2="30" y2="69" stroke="#0f172a" stroke-width="1.5"/>
+    <line x1="40" y1="75" x2="40" y2="69" stroke="#0f172a" stroke-width="1.5"/>
+  </g>
+
+  <!-- 2. Computer / Monitor (Left Side) -->
+  <g transform="translate(90, 160) scale(0.6)">
+    <!-- Monitor Body -->
+    <rect x="0" y="0" width="46" height="34" rx="4" fill="#f8fafc" stroke="#1e293b" stroke-width="3"/>
+    <!-- Screen -->
+    <rect x="5" y="5" width="36" height="24" rx="2" fill="#0f172a"/>
+    <path d="M 9 17 L 17 17 M 13 13 L 13 21" stroke="#22c55e" stroke-width="2"/>
+    <circle cx="28" cy="17" r="4" fill="#38bdf8"/>
+    <!-- Stand -->
+    <path d="M 23 34 L 23 42 M 13 42 L 33 42" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- 3. Chemical Beaker / Flask & Electronics (Right Side) -->
+  <g transform="translate(178, 155) scale(0.55)">
+    <!-- Flask -->
+    <path d="M 18,0 L 28,0 M 23,0 L 23,16 L 38,44 A 6,6 0 0,1 33,52 L 13,52 A 6,6 0 0,1 8,44 L 23,16" 
+          fill="#e0f2fe" stroke="#1e293b" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M 11,40 L 35,40 L 33,50 L 13,50 Z" fill="#38bdf8"/>
+    <circle cx="23" cy="32" r="2.5" fill="#f59e0b"/>
+    <circle cx="19" cy="44" r="2" fill="#ffffff"/>
+    <circle cx="27" cy="46" r="2" fill="#ffffff"/>
+  </g>
+
+  <!-- 4. Open Book & Wheat/Laurel Base -->
+  <g transform="translate(150, 206)">
+    <!-- Open Book -->
+    <path d="M 0,2 C -12,-6 -30,-6 -40,2 L -40,16 C -30,8 -12,8 0,16 C 12,8 30,8 40,16 L 40,2 C 30,-6 12,-6 0,2 Z" 
+          fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+    <line x1="0" y1="2" x2="0" y2="16" stroke="#1e293b" stroke-width="2"/>
+    <!-- Page lines -->
+    <line x1="-32" y1="6" x2="-8" y2="6" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="-32" y1="10" x2="-10" y2="10" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="8" y1="6" x2="32" y2="6" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="10" y1="10" x2="32" y2="10" stroke="#94a3b8" stroke-width="1.5"/>
+  </g>
+
+  <!-- Established Ribbon / Motto Tag -->
+  <g transform="translate(150, 235)">
+    <rect x="-42" y="-9" width="84" height="18" rx="5" fill="#d97706" stroke="#78350f" stroke-width="1.5"/>
+    <text x="0" y="4" font-family="'Outfit', sans-serif" font-weight="900" font-size="10" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+      ESTD 2001
+    </text>
+  </g>
+</svg>
